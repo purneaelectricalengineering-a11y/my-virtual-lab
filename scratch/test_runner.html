@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <div id="opening-animation-slot"></div>
+  <nav id="global-navbar"></nav>
+  <main id="main-page-content"></main>
+  <div id="log"></div>
+  <script>
+    window.errors = [];
+    window.onerror = function(msg, url, line, col, error) {
+      window.errors.push(msg + ' at line ' + line + ':' + col);
+    };
+  </script>
+  <script src="js/audio.js"></script>
+  <script src="js/experiments-data.js"></script>
+  <script src="js/circuit-engine.js"></script>
+  <script src="js/settings.js"></script>
+  <script src="js/blogs.js"></script>
+  <script src="js/simulator.js"></script>
+  <script src="js/pdf-generator.js"></script>
+  <script src="js/instrument-library.js"></script>
+  <script src="js/student-dashboard.js"></script>
+  <script src="js/viva-quiz.js"></script>
+  <script src="js/admin-panel.js"></script>
+  <script src="js/app.js"></script>
+</head>
+<body>
+  <script>
+    try {
+      window.app.init();
+      document.getElementById('log').innerHTML = 'SUCCESS: len=' + document.getElementById('main-page-content').innerHTML.length + ', errors=' + JSON.stringify(window.errors);
+    } catch(err) {
+      document.getElementById('log').innerHTML = 'FATAL ERROR: ' + err.message + ' | Stack: ' + err.stack + ' | errors=' + JSON.stringify(window.errors);
+    }
+  </script>
+</body>
+</html>

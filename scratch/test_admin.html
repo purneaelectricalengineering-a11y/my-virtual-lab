@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>My Virtual Lab — Interactive Engineering Laboratory Digital Twin</title>
+  <meta name="description" content="Digital twin of physical electrical engineering laboratory instruments. Drag wires, read meters, and verify circuit theorems with precision calculations.">
+
+  <!-- Google Fonts: Space Grotesk, Inter, JetBrains Mono -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    if (typeof tailwind !== 'undefined') {
+      tailwind.config = {
+        darkMode: ['class', '[data-theme="dark"]'],
+        theme: {
+          extend: {
+            colors: {
+              cyberNavy: '#070B19',
+              cyberDark: '#0D1527',
+              cyberElevated: '#111C35',
+              cyberCyan: '#00F2FE',
+              cyberViolet: '#8B5CF6'
+            },
+            fontFamily: {
+              heading: ['Space Grotesk', 'sans-serif'],
+              body: ['Inter', 'sans-serif'],
+              mono: ['JetBrains Mono', 'monospace']
+            }
+          }
+        }
+      };
+    }
+  </script>
+
+  <!-- Canvas Confetti CDN -->
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.3/dist/confetti.browser.min.js"></script>
+
+  <!-- jsPDF CDN for Instant Client-side PDF Generation -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+
+  <!-- Custom Stylesheet -->
+  <link rel="stylesheet" href="../css/styles.css">
+</head>
+<body class="bg-[#070B19] text-slate-100 min-h-screen flex flex-col justify-between selection:bg-cyan-500 selection:text-black">
+
+  <!-- Cinematic 7-8s Opening Animation Slot -->
+  <div id="opening-animation-slot"></div>
+
+  <!-- Global Sticky Navigation Bar -->
+  <nav id="global-navbar" class="sticky top-0 z-40 bg-[#070B19]/90 backdrop-blur-md border-b border-slate-800 shadow-lg"></nav>
+
+  <!-- Main Multi-Page View Container -->
+  <main id="main-page-content" class="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 transition-opacity duration-200"></main>
+
+  <!-- Global Footer -->
+  <footer class="bg-[#040711] border-t border-slate-800/80 py-10 mt-16 text-xs text-slate-400 no-print">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-6">
+      <div class="flex flex-col md:flex-row items-center justify-between gap-6">
+        
+        <div class="flex items-center space-x-3 cursor-pointer" onclick="window.app.navigateTo('home')">
+          <div class="w-10 h-10 rounded-xl bg-slate-900 border border-cyan-500/40 flex items-center justify-center shadow-[0_0_15px_rgba(0,242,254,0.3)] relative overflow-hidden">
+            <svg width="28" height="28" class="w-7 h-7" style="width: 28px; height: 28px; max-width: 28px; max-height: 28px;" viewBox="0 0 40 40" fill="none">
+              <circle cx="20" cy="20" r="16" stroke="url(#foot_grad1)" stroke-width="2" stroke-dasharray="3 2" />
+              <circle cx="20" cy="20" r="9" stroke="#00F2FE" stroke-width="2" />
+              <circle cx="20" cy="20" r="4" fill="#8B5CF6" />
+              <path d="M 20 4 L 20 11 M 20 29 L 20 36 M 4 20 L 11 20 M 29 20 L 36 20" stroke="#00F2FE" stroke-width="1.8" stroke-linecap="round" />
+              <defs>
+                <linearGradient id="foot_grad1" x1="0" y1="0" x2="40" y2="40">
+                  <stop offset="0%" stop-color="#00F2FE" />
+                  <stop offset="100%" stop-color="#8B5CF6" />
+                </linearGradient>
+              </defs>
+            </svg>
+          </div>
+          <div>
+            <div class="font-bold text-white font-heading text-sm tracking-wide">MY VIRTUAL LAB</div>
+            <div class="text-[11px] font-mono text-cyan-400">Digital Twin of Real Laboratory Instruments</div>
+          </div>
+        </div>
+
+        <!-- Next-Gen Simulator Badge -->
+        <div class="flex items-center space-x-2 px-3.5 py-1.5 rounded-full bg-slate-900 border border-slate-700/80 shadow-inner">
+          <span class="w-2 h-2 rounded-full bg-cyan-400 animate-pulse"></span>
+          <span class="font-mono text-xs font-semibold tracking-wider text-slate-200">Interactive Digital Twin Bench</span>
+        </div>
+
+        <!-- Mandatory Caution & Safety Note -->
+        <div class="px-4 py-2 rounded-xl bg-amber-500/10 border border-amber-500/25 text-amber-300 text-center font-mono text-[11px] max-w-md">
+          ⚠️ <strong>Notice & Lab Safety:</strong> Virtual practice does not replace real lab safety procedures. Theoretical calculations represent idealized models; physical lab results may slightly vary due to component tolerances and resistance.
+        </div>
+      </div>
+
+      <div class="border-t border-slate-800/60 pt-4 flex flex-col sm:flex-row items-center justify-between text-[11px] text-slate-500 font-mono gap-2">
+        <div>
+          Created & Developed by <strong>Govind Kumar</strong> (Founder & Chief Architect, Electrical Branch 2025-2029) • Built for Engineering Students.
+        </div>
+        <div class="flex flex-wrap items-center gap-3 text-xs">
+          <button onclick="window.app.navigateTo('blogs')" class="hover:text-cyan-400 transition">Engineering Guides</button>
+          <span>•</span>
+          <button onclick="window.app.navigateTo('contributors')" class="hover:text-cyan-400 transition">Verification Contributors</button>
+          <span>•</span>
+          <a href="mailto:myvirtuallablive@gmail.com" class="text-cyan-400 hover:underline transition">myvirtuallablive@gmail.com</a>
+          <span>•</span>
+          <button onclick="window.app.playOpeningAnimation()" class="text-amber-400 hover:text-amber-300 transition flex items-center space-x-1">
+            <span>🎬</span>
+            <span>Replay Intro</span>
+          </button>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Application Logic Scripts -->
+  <script src="../js/audio.js"></script>
+  <script src="../js/experiments-data.js"></script>
+  <script src="../js/circuit-engine.js"></script>
+  <script src="../js/settings.js"></script>
+  <script src="../js/blogs.js"></script>
+  <script src="../js/simulator.js"></script>
+  <script src="../js/pdf-generator.js"></script>
+  <script src="../js/instrument-library.js"></script>
+  <script src="../js/viva-quiz.js"></script>
+  <script src="../js/admin-panel.js"></script>
+  <script src="../js/app.js"></script>
+
+  <!-- Bootstrap App -->
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      
+    window.app.init();
+    window.app.dismissOpeningAnimation();
+    window.app.navigateTo('admin');
+    window.adminPanel.authenticate('govind2026');
+    
+    });
+  </script>
+</body>
+</html>
